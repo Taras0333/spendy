@@ -4,15 +4,26 @@ import {Budget} from './budget/budget';
 import {Buttons} from './buttons/buttons';
 import {CashFlow} from './charges/chargesFunc';
 import {store} from './store/store';
-import {Provider} from "react-redux"
+import {Provider} from "react-redux";
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import {IncomeFunc} from './incomes/incomeFunc';
 
 function App() {
   return (
     <Provider store={store}>
       <div className="App">
-        <Budget />
-        <Buttons />
-        <CashFlow />
+        <Router>
+          <Budget />
+          <Buttons />
+          <Switch>
+            <Route exact path="/">
+              <CashFlow />
+            </Route>
+            <Route exact path="/incomes">
+              <IncomeFunc />
+            </Route>
+          </Switch>
+        </Router>
       </div>
     </Provider>
   );

@@ -14,6 +14,7 @@ const mapState = (state) => {
 export class ChargesFunc extends Component{
     state={
         value: '',
+        category: '',
     };
 
     getSum = (e) => {
@@ -27,10 +28,13 @@ export class ChargesFunc extends Component{
         })
     }
     saveSum = () => {
-        this.props.saveCharge(+this.state.value, this.state.category);
-        this.setState({
-            value: '',
-        })
+        if(this.state.value !== '' && this.state.category !== ''){
+            this.props.saveCharge(+this.state.value, this.state.category);
+            this.setState({
+                value: '',
+                category: '',
+            })
+        } 
     }
    
     render(){
