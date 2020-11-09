@@ -1,21 +1,23 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import './incomes.scss';
+import {connect} from "react-redux";
 
 const mapState = (state) => {
     return state;
   }
 
-export const Income = (props) => (
-    <div className="each-charge">
-        <div className="charge-type">
+ const EachIncome = (props) => (
+    <div className="each-income">
+        <div className="income-type">
             <span className="each-data">Дохід</span>
         </div>
-        <div className="charge-date">
-            <span className="each-data"></span>
+        <div className="income-date">
+            <span className="each-data">{props.date.toLocaleDateString("ua") + ' ' + props.date.toLocaleTimeString("ua")}</span>
         </div>
-        <div className="charge-charge">
-            <span className="each-data"></span>
+        <div className="income-income">
+            <span className="each-data">{'+' + ' ' + props.UAHSymbol + props.income}</span>
         </div>
     </div>
 );
 
+export const Income = connect(mapState, null)(EachIncome);

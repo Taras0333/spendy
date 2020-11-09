@@ -5,3 +5,7 @@ export const saveCharge = (charge, category) => ({
     charge: charge,
     category: category,
 });
+export const saveIncome = (income) => ({
+    type: "SAVE_INCOME",
+    income: income,
+});

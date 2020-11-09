@@ -1,4 +1,14 @@
 import { createStore } from 'redux';
 import {reducer} from '../reducer/reducer';
+import {loadState, saveState} from "./localStorage";
+import throttle from 'lodash.throttle';
 
-export const store = createStore(reducer);
+const persistedState = loadState();
+
+export const store = createStore(
+    reducer,
+    persistedState
+    );
+store.subscribe(throttle(() => {
+    saveState(store.getState());
+}, 1000));
