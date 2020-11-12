@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import {Charge} from './charges';
 import {connect} from "react-redux";
 import './charges.scss';
@@ -10,35 +10,25 @@ const mapState = (state) => {
   const mapDispatch = {
     saveCharge,
 }
+export const ChargesFunc = (props) => {
+    
+    const [value, setValue] = useState('');
+    const [category, setCategory] = useState('');
 
-export class ChargesFunc extends Component{
-    state={
-        value: '',
-        category: '',
-    };
-
-    getSum = (e) => {
-        this.setState({
-            value: e.target.value,
-        })
+   function getSum (e) {
+        setValue(e.target.value);
     }
-    saveCategory = (e) => {
-        this.setState({
-            category: e.target.value,
-        })
+   function saveCategory (e) {
+        setCategory(e.target.value);
     }
-    saveSum = () => {
-        if(this.state.value !== '' && this.state.category !== ''){
-            this.props.saveCharge(+this.state.value, this.state.category);
-            this.setState({
-                value: '',
-                category: '',
-            })
+    function saveSum () {
+        if(value !== '' && category !== ''){
+            props.saveCharge(+value, category);
+            setValue('');
+            setCategory('');
         } 
     }
-   
-    render(){
-        return(
+    return(
         <div className="charges-wrapper">
             <div className="charges-list">
                 <div className="discription-wrapper">
@@ -51,19 +41,15 @@ export class ChargesFunc extends Component{
                     <div className="disc-wrapper">
                         <span className="disc">Сума</span>
                     </div>
-                    
-                    
-                   
                 </div>
-                
-                {this.props.charges.reverse().slice(0, 7).map((el) => {
+                {props.charges.slice().reverse().slice(0, 7).map((el) => {
                     return(
                         <Charge type={el.type} date={el.date} charge={el.charge}/>
                     )
                 })}
                 <div className="input-wrapper">
                     <div className="each-input-wrapper">
-                        <select type="select" className="select" onChange={this.saveCategory}>
+                        <select type="select" className="select" onChange={saveCategory}>
                             <option selected disabled>Категорія</option>
                             <option>Їжа</option>
                             <option>Розваги</option>
@@ -72,19 +58,14 @@ export class ChargesFunc extends Component{
                         </select>
                     </div>
                     <div className="each-input-wrapper">
-                        <button className="button-save" onClick={this.saveSum}>Зберегти</button>
+                        <button className="button-save" onClick={saveSum}>Зберегти</button>
                     </div>
                     <div className="each-input-wrapper">
-                        <input className="input" type="message" placeholder="Впиши суму" onChange={this.getSum} value={this.state.value}></input>
+                        <input className="input" type="message" placeholder="Впиши суму" onChange={getSum} value={value}></input>
                     </div>
-                    
-                    
-                   
                 </div>
             </div>
         </div>
-        )
-    }
+    )
 }
-
 export const CashFlow = connect(mapState, mapDispatch)(ChargesFunc);

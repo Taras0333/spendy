@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import {Income} from './incomes';
 import {connect} from 'react-redux';
 import './incomes.scss';
@@ -10,51 +10,40 @@ const mapState = (state) => {
   const mapDispatch = {
     saveIncome,
 }
-class IncomeFunction extends Component{
-    state={
-        value: '',
-    };
-    getIncome = (e) => {
-        this.setState({
-            value: e.target.value,
-        })
-    }
-    saveInc = () => {
-        if(this.state.value !== ''){
-        this.props.saveIncome(+this.state.value);
-        this.setState({
-            value: '',
-        })
-    }
-    }
 
-    render(){
-        return(
-            <div className="income-wrapper">
+const IncomeFunction = (props) => {
+    const [value, setValue] = useState('');
+
+   function getIncome (e) {
+       setValue(e.target.value);
+    }
+   function saveInc () {
+        if(value !== ''){
+        props.saveIncome(+value);
+        setValue('');
+    }
+    }
+    return(
+        <div className="income-wrapper">
                 <div className="income-list">
-               {this.props.incomes.reverse().slice(0, 7).map((el) => {
+               {props.incomes.slice().reverse().slice(0, 7).map((el) => {
                    return(
                     <Income date={el.date} income={el.income}/>
                    )
                })}
                     <div className="input-wrapper">
                     <div className="each-input-wrapper">
-                        
                     </div>
                     <div className="each-input-wrapper">
-                        <button className="button-save" onClick={this.saveInc}>Зберегти</button>
+                        <button className="button-save" onClick={saveInc}>Зберегти</button>
                     </div>
                     <div className="each-input-wrapper">
-                        <input className="input" type="message" placeholder="Впиши суму" onChange={this.getIncome} value={this.state.value}></input>
+                        <input className="input" type="message" placeholder="Впиши суму" onChange={getIncome} value={value}></input>
                     </div>
-                    
-                    
-                   
-                </div> 
-                         
+                </div>     
                 </div>
             </div>
-        )
-    }
-};
+    )
+}
+
 export const IncomeFunc = connect(mapState, mapDispatch)(IncomeFunction);
