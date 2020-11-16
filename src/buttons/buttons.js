@@ -11,7 +11,7 @@ export const Buttons = () => {
             <NavLink to="/incomes" className="button">
                 <button className="button">Доходи</button>
             </NavLink>
-            <NavLink to="/charts" className="button">
+            <NavLink to="/chart" className="button">
                 <button className="button ">Графік</button>
             </NavLink>
         </div>

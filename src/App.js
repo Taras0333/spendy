@@ -7,6 +7,7 @@ import {store} from './store/store';
 import {Provider} from "react-redux";
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import {IncomeFunc} from './incomes/incomeFunc';
+import {ChartView} from './chart/chart';
 
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
             </Route>
             <Route exact path="/incomes">
               <IncomeFunc />
+            </Route>
+            <Route exact path="/chart">
+              <ChartView/>
             </Route>
           </Switch>
         </Router>
